@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import Footer from "@/app/components/Footer";
-import Headline from "@/app/components/Headline";
+import {Footer} from "@/app/components/Footer";
+import {Headline} from "@/app/components/Headline";
 
 export default function Home() {
     return (
