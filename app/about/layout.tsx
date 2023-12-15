@@ -1,4 +1,4 @@
-import styles from './styles.module.css'
+import classes from './styles.module.css'
 
 export default function DashboardLayout(
     {
@@ -6,5 +6,5 @@ export default function DashboardLayout(
     }: {
         children: React.ReactNode
     }) {
-    return <section className={styles.dashboard}>{children}</section>
+    return <section className={classes.dashboard}>{children}</section>
 }
