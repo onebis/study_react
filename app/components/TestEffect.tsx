@@ -10,4 +10,5 @@ export function TestEffect() {
       document.body.style.backgroundColor = "";
     };
   }, []);
+  return <div></div>;
 }
