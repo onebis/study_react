@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 
 export function TestEvent() {
-  const handleClick = useCallback((e) => {
+  const handleClick = useCallback(() => {
     alert("123");
   }, []);
 
