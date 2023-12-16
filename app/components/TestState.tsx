@@ -1,34 +1,10 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import { useCounter } from "@/app/hooks/useCounter";
+import { useInputArray } from "@/app/hooks/useInputArray";
 
 export function TestState() {
-  const [count, setCount] = useState(0);
-  const [text, setText] = useState("");
-  const [isShow, setIsShow] = useState(true);
-  const [array, setArray] = useState([""]);
-
-  const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    setCount((prevCount) => prevCount + 1);
-  }, []);
-
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setText((prevText) => e.target.value);
-  }, []);
-
-  const toggleIsShow = useCallback(() => {
-    setIsShow((prevIsShow) => !prevIsShow);
-  }, []);
-
-  const handleAdd = useCallback(() => {
-    setArray((prevArray: string[]) => {
-      if (prevArray.some((item) => item === text)) {
-        alert("同じ要素が存在します");
-        return prevArray;
-      }
-      setText((prevText) => "");
-      return [...prevArray, text];
-    });
-  }, [text]);
+  const { count, isShow, handleClick, toggleIsShow } = useCounter();
+  const { text, array, handleChange, handleAdd } = useInputArray();
 
   return (
     <div>
@@ -46,6 +22,7 @@ export function TestState() {
       >
         {isShow ? "非表示" : "表示"}
       </button>
+
       <label className="block mt-3">お名前</label>
       <input
         className="text-black w-full flex justify-center mt-1"
