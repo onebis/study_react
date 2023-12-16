@@ -5,18 +5,30 @@ export function TestState() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
   const [isShow, setIsShow] = useState(true);
+  const [array, setArray] = useState([""]);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    setCount((count) => count + 1);
+    setCount((prevCount) => prevCount + 1);
   }, []);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setText((text) => e.target.value);
+    setText((prevText) => e.target.value);
   }, []);
 
   const toggleIsShow = useCallback(() => {
-    setIsShow((isShow) => !isShow);
+    setIsShow((prevIsShow) => !prevIsShow);
   }, []);
+
+  const handleAdd = useCallback(() => {
+    setArray((prevArray: string[]) => {
+      if (prevArray.some((item) => item === text)) {
+        alert("同じ要素が存在します");
+        return prevArray;
+      }
+      setText((prevText) => "");
+      return [...prevArray, text];
+    });
+  }, [text]);
 
   return (
     <div>
@@ -40,6 +52,17 @@ export function TestState() {
         value={text}
         onChange={handleChange}
       />
+      <button
+        className="mt-3 w-full flex justify-center bg-blue-900 text-black hover:bg-blue-400"
+        onClick={handleAdd}
+      >
+        追加
+      </button>
+      <ul>
+        {array.map((item, index) => {
+          return <li key={index}>{item}</li>;
+        })}
+      </ul>
     </div>
   );
 }
