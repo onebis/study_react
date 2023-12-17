@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { usePosts } from "@/app/hooks/usePosts";
 
 type Posts = {
   userId: number;
@@ -7,51 +8,66 @@ type Posts = {
   title: string;
   body: string;
 };
+type State = {
+  data: Posts[];
+  loading: boolean;
+  error: string;
+};
 
 export function Posts() {
-  const [posts, setPosts] = useState<Posts[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
+  const { data, error, isLoading, isEmpty } = usePosts();
+  // const { data, isLoading, error } = useSWR<Posts[]>(URL, fetcher);
 
-  const getPosts = useCallback(async () => {
-    try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const json: Posts[] = await res.json();
-      setPosts(json);
-      if (!res.ok) {
-        throw new Error("エラーが発生したため、データが取得できません");
-      }
-    } catch (error: any) {
-      setError(error);
-    }
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    getPosts();
-  }, [getPosts]);
-
-  if (loading) {
-    return <div className={``}>ロード中</div>;
-  }
+  // const [state, setState] = useState<State>({
+  //   data: [],
+  //   loading: true,
+  //   error: "",
+  // });
+  //
+  // const getPosts = useCallback(async () => {
+  //   try {
+  //     const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  //     const json: Posts[] = await res.json();
+  //     setState({ ...state, data: json, loading: false });
+  //     if (!res.ok) {
+  //       throw new Error("エラーが発生したため、データが取得できません");
+  //     }
+  //   } catch (error: any) {
+  //     setState({
+  //       ...state,
+  //       error: "エラーが発生したため、データが取得できません",
+  //     });
+  //   }
+  // }, []);
+  //
+  // useEffect(() => {
+  //   getPosts();
+  // }, [getPosts]);
 
   if (error) {
     return <div>{error.message}</div>;
   }
-
-  if (posts.length === 0) {
+  if (isEmpty) {
     return <div>データは空です</div>;
   }
 
+  // if (data.length === 0) {
+  //   return <div>データは空です</div>;
+  // }
+
   return (
     <ol>
-      {posts.map((post) => {
-        return (
-          <li key={post.id} className={`list-decimal`}>
-            {post.title}
-          </li>
-        );
-      })}
+      {isLoading ? (
+        <div>ロード中</div>
+      ) : (
+        data!.map((post) => {
+          return (
+            <li key={post.id} className={`list-decimal`}>
+              {post.title}
+            </li>
+          );
+        })
+      )}
     </ol>
   );
 }
