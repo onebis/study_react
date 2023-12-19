@@ -1,21 +1,22 @@
-"use client";
-import { useCallback, useEffect, useState } from "react";
-import { usePosts } from "@/app/hooks/usePosts";
+'use client'
+import { useCallback, useEffect, useState } from 'react'
+import { usePosts } from '@/app/hooks/usePosts'
 
 type Posts = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-};
+  userId: number
+  id: number
+  title: string
+  body: string
+}
 type State = {
-  data: Posts[];
-  loading: boolean;
-  error: string;
-};
+  data: Posts[]
+  loading: boolean
+  error: string
+}
 
 export function Posts() {
-  const { data, error, isLoading, isEmpty } = usePosts();
+  const { data, error, isLoading, isEmpty } = usePosts()
+
   // const { data, isLoading, error } = useSWR<Posts[]>(URL, fetcher);
 
   // const [state, setState] = useState<State>({
@@ -45,10 +46,10 @@ export function Posts() {
   // }, [getPosts]);
 
   if (error) {
-    return <div>{error.message}</div>;
+    return <div>{error.message}</div>
   }
   if (isEmpty) {
-    return <div>データは空です</div>;
+    return <div>データは空です</div>
   }
 
   // if (data.length === 0) {
@@ -65,9 +66,9 @@ export function Posts() {
             <li key={post.id} className={`list-decimal`}>
               {post.title}
             </li>
-          );
+          )
         })
       )}
     </ol>
-  );
+  )
 }

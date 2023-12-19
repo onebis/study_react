@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { useCallback } from "react";
+import { useCallback } from 'react'
 
 export function TestEvent() {
   const handleClick = useCallback(() => {
-    alert("123");
-  }, []);
+    alert('123')
+  }, [])
 
   return (
-    <a href="/" onClick={handleClick}>
+    <a href='/' onClick={handleClick}>
       click here
     </a>
-  );
+  )
 }

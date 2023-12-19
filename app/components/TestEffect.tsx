@@ -1,25 +1,25 @@
-"use client";
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+'use client'
+import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 
 export function TestEffect() {
-  const pathName = usePathname();
+  const pathName = usePathname()
   const bgColor = (pathName: string) => {
     switch (pathName) {
-      case "/":
-        return "blue";
-      case "/about":
-        return "lightblue";
+      case '/':
+        return 'blue'
+      case '/about':
+        return 'lightblue'
       default:
-        return "";
+        return ''
     }
-  };
+  }
   useEffect(() => {
-    document.body.style.backgroundColor = bgColor(pathName);
+    document.body.style.backgroundColor = bgColor(pathName)
     return () => {
       //アンマウント時の処理
-      document.body.style.backgroundColor = "";
-    };
-  }, [pathName]);
-  return <div></div>;
+      document.body.style.backgroundColor = ''
+    }
+  }, [pathName])
+  return <div></div>
 }
